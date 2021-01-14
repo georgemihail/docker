@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+  frontend_service:
+    image: frontend-service
+    build:
+      context: ./frontend-example-docker/
+    ports:
+      - 5000:5000
+    environment:
+      - API_URL=http://127.0.0.1:8000
+    container_name: frontend_container
+  
+  backend_service:
+    image: backend-image
+    build:
+      context: ./backend-example-docker/
+    ports:
+      - 8000:8000
+    environment:
+      - FRONT_URL=http://127.0.0.1:5000
+      - REDIS=redis
+      - REDIS_PORT=6379
+    container_name: backend_container
+  redis:
+    image: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    container_name: redis

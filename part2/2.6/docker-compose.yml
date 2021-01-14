@@ -1,0 +1,43 @@
+version: '3.6'
+
+services:
+  frontend_service:
+    image: frontend-service
+    build:
+      context: ./frontend-example-docker/
+    ports:
+      - 5000:5000
+    environment:
+      - API_URL=http://127.0.0.1:8000
+    container_name: frontend_container
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=sekret
+      - POSTGRES_USER=docker
+      - POSTGRES_DB=postgres_db
+    container_name: db_postgres
+  backend_service:
+    image: backend-image
+    build:
+      context: ./backend-example-docker/
+    ports:
+      - 8000:8000
+    environment:
+      - FRONT_URL=http://127.0.0.1:5000
+      - REDIS=redis
+      - REDIS_PORT=6379
+      - DB_USERNAME=docker
+      - DB_PASSWORD=sekret
+      - DB_NAME=postgres_db
+      - DB_HOST=db_postgres
+    container_name: backend_container
+    depends_on: 
+      - db
+  redis:
+    image: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    container_name: redis
