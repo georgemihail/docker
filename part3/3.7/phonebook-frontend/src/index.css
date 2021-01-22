@@ -1,0 +1,20 @@
+
+.notificationSuccess {
+  color: green;
+  border-color: green;
+  border: solid;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.notificationUnSuccess {
+  color: red;
+  border-color: red;
+  border: solid;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+  backend-service:
+    image: backend_example_optimised
+    build: ./backend-example-docker/
+    ports:
+      - 8000:8000
+    container_name: backend-optimised
+  front-service:
+    image: frontend_example_optimised
+    build: ./frontend-example-docker/
+    ports:
+      - 5000:5000
+    container_name: frontend-optimised
